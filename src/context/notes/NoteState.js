@@ -61,8 +61,32 @@ const NoteState = (props) => {
 
   const [notes, setNotes] = useState(notesInitial)
 
+  // add a note
+  const addNote = (title, description, tag) => {
+    const note = {
+      "_id": "65199e22d7f38772f16213b556",
+      "user": "64fe00a7afeaf62b857ace11",
+      "title": title,
+      "description": description,
+      "tag": tag,
+      "date": "1696177698658",
+      "__v": 0
+    }
+    setNotes(notes.concat(note))
+  }
+
+  // delete a note
+  const deleteNote = (id) => {
+
+  }
+
+  // edit a note
+  const editNote = (id) => {
+    
+  }
+
   return (
-    <NoteContext.Provider value={{ notes, setNotes }}>
+    <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, editNote }}>
       {props.children}
     </NoteContext.Provider>
   )
