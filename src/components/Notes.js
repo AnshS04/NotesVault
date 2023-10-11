@@ -49,11 +49,11 @@ const Notes = () => {
                             <form className='my-3'>
                                 <div className="form-group my-1">
                                     <label htmlFor="title">Title</label>
-                                    <input type="text" className="form-control" id="etitle" name='etitle' value={note.etitle} aria-describedby="emailHelp" onChange={onChange} placeholder="Enter title" />
+                                    <input type="text" className="form-control" id="etitle" name='etitle' value={note.etitle} aria-describedby="emailHelp" onChange={onChange} placeholder="Enter title" minLength={5} required />
                                 </div>
                                 <div className="form-group my-1">
                                     <label htmlFor="description">Description</label>
-                                    <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} placeholder="Description" />
+                                    <input type="text" className="form-control" id="edescription" name='edescription' value={note.edescription} onChange={onChange} placeholder="Description" minLength={5} required />
                                 </div>
                                 <div className="form-group my-1">
                                     <label htmlFor="tag">Tag</label>
@@ -63,7 +63,7 @@ const Notes = () => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleSubmit}>Update Note</button>
+                            <button disabled={note.etitle.length < 5 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handleSubmit}>Update Note</button>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,9 @@ const Notes = () => {
 
             <div className="row my-3">
                 <h2>Your Notes</h2>
+                <div className="container mx-2">
+                    <h6>{notes.length === 0 && 'No notes to display'}</h6>
+                </div>
                 {notes.map((note) => {
                     return <NoteItem key={note._id} updateNote={updateNote} note={note} />
                 })}
