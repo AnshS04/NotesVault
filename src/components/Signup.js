@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Signup = () => {
+const Signup = (props) => {
   const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" })
   let navigate = useNavigate();
 
@@ -19,10 +19,15 @@ const Signup = () => {
     const json = await response.json();
     console.log(json);
 
-
-    // redirect
-    localStorage.setItem('token', json.authtoken);
-    navigate("/")
+    if(json.success) {
+      // redirect
+      localStorage.setItem('token', json.authToken);
+      navigate("/")
+      props.showAlert("Account created successfully", "success")
+    }
+    else {
+      props.showAlert("Invalid Credentials", "danger")
+    }
 
   }
 
@@ -31,14 +36,15 @@ const Signup = () => {
   }
   return (
     <div className='container'>
+      <h2 className='mt-2'>Signup here</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name='name' aria-describedby="emailHelp" onChange={onChange} required />
+          <input type="text" className="form-control" id="name" name='name' aria-describedby="emailHelp" onChange={onChange}  />
         </div>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
-          <input type="email" className="form-control" id="email" name="email" aria-describedby="emailHelp" onChange={onChange} required />
+          <input type="email" className="form-control" id="email" name="email" aria-describedby="emailHelp" onChange={onChange}  />
           <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div className="mb-3">
