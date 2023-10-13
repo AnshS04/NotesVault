@@ -1,8 +1,11 @@
 import React from 'react'
+import Accordion from './Accordion'
 
 const About = () => {
   return (
-    <div>This is About</div>
+    <div className='container'>
+      <Accordion />
+    </div>
   )
 }
 
